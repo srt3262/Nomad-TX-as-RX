@@ -33,3 +33,8 @@ jobs:
           python -m json.tool "RX/Radiomaster Nomad RX FCC.json" >/dev/null
           python -m json.tool "hardware-upload/hardware-nomad-rx-fcc-v4-fan.json" >/dev/null
           python -m json.tool "targets-radiomaster-rx_dual-entry.json" >/dev/null
+          python -m json.tool "firmware/build-manifest.json" >/dev/null
+
+      - name: Verify firmware checksums
+        working-directory: firmware
+        run: sha256sum -c SHA256SUMS.txt

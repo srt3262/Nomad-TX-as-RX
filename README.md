@@ -51,7 +51,7 @@ On RX firmware, normal TX fan menu items such as `fan-mode` and `power-fan-thres
 - The two-wire UART conversion has bound and operated as an ELRS receiver.
 - A 12 V supply materially improved observed telemetry range compared with USB-C power in the July 2026 tests.
 - Flight-controller CRSF/MAVLink interoperability, sustained high-power thermal behavior, and single-wire S.Port operation still need independent testing.
-- This repository does not currently include a prebuilt firmware binary.
+- Corrected FCC915 WebUI and merged factory images for the supported GPIO3/GPIO1 UART conversion are included under `firmware/`.
 
 See [`docs/BUILD_VERIFICATION.md`](docs/BUILD_VERIFICATION.md) for the reproducible compile record and [`docs/TEST_RESULTS.md`](docs/TEST_RESULTS.md) for hardware observations and remaining validation work.
 
@@ -74,6 +74,13 @@ See [`docs/BUILD_VERIFICATION.md`](docs/BUILD_VERIFICATION.md) for the reproduci
 │   └── Radiomaster Nomad RX FCC.json
 ├── hardware-upload/
 │   └── hardware-nomad-rx-fcc-v4-fan.json
+├── firmware/
+│   ├── README.md
+│   ├── build-manifest.json
+│   ├── SHA256SUMS.txt
+│   ├── hardware.json
+│   ├── Nomad_RX_UART0_ELRS_4.1.0_FCC915_WIFI.bin
+│   └── Nomad_RX_UART0_ELRS_4.1.0_FCC915_FACTORY.bin
 ├── targets-radiomaster-rx_dual-entry.json
 ├── examples/
 │   └── super_defines.fcc915.example.txt
@@ -95,6 +102,10 @@ See [`docs/BUILD_VERIFICATION.md`](docs/BUILD_VERIFICATION.md) for the reproduci
 | `verify_nomad_rx_target.py` | Verifies the local source tree and optionally checks a flashed device over WebUI. |
 | `RX/Radiomaster Nomad RX FCC.json` | The RX hardware layout with `misc_fan_en: 2`. |
 | `hardware-upload/hardware-nomad-rx-fcc-v4-fan.json` | Same layout, named for manual upload through WebUI if needed. |
+| `firmware/*_WIFI.bin` | Prebuilt FCC915 application image for the ExpressLRS WebUI or Configurator local-firmware flow. |
+| `firmware/*_FACTORY.bin` | Merged ESP32 recovery/initial-conversion image for flashing at address `0x0`. |
+| `firmware/hardware.json` | Exact hardware definition embedded in the prebuilt images. |
+| `firmware/build-manifest.json` | Build provenance, binary sizes, hashes, and verified factory offsets. |
 | `targets-radiomaster-rx_dual-entry.json` | Reference target-registry entry inserted into `src/hardware/targets.json`. |
 | `examples/super_defines.fcc915.example.txt` | Example FCC 915 build defines. |
 | `patches/force_fan_on_snippet.txt` | Optional emergency fallback if the fan pin is present but RX firmware never asserts it. |
@@ -112,6 +123,34 @@ See [`docs/BUILD_VERIFICATION.md`](docs/BUILD_VERIFICATION.md) for the reproduci
 - For first flash after converting from TX-module firmware to RX firmware, use UART/USB flashing and erase flash first.
 - Keep a known-good recovery image before the first conversion flash.
 - The informal test observations in this repository are not guaranteed range specifications.
+
+---
+
+## Use the prebuilt firmware
+
+For the supported full-duplex conversion, download:
+
+```text
+firmware/Nomad_RX_UART0_ELRS_4.1.0_FCC915_WIFI.bin
+```
+
+Use that application image with the ExpressLRS receiver WebUI or the Configurator's local-firmware flow. It contains the corrected target and has no binding phrase or Wi-Fi credentials compiled into it.
+
+For serial/USB recovery or an initial conversion that cannot pass the WebUI product-type check, use:
+
+```text
+firmware/Nomad_RX_UART0_ELRS_4.1.0_FCC915_FACTORY.bin
+```
+
+The factory image is flashed at address `0x0` and replaces the ESP32 flash layout and configuration. It is not a normal WebUI upload file.
+
+Verify the files against:
+
+```text
+firmware/SHA256SUMS.txt
+```
+
+See [`firmware/README.md`](firmware/README.md) for exact image roles and build provenance. The earlier experimental one-wire S.Port image is not part of the supported release.
 
 ---
 

@@ -11,6 +11,9 @@
 - Changed target installation to preserve the official registry's formatting and produce a minimal 13-line registry diff.
 - Added automated tests, GitHub Actions validation, upstream attribution, contribution guidance, and GPL-3.0-or-later licensing.
 - Verified a full `Unified_ESP32_LR1121_RX_via_UART` build with the corrected target on ExpressLRS 4.1.0.
+- Added the corrected FCC915 WebUI application image and merged factory image for the supported GPIO3/GPIO1 full-duplex conversion.
+- Added binary hashes, a build manifest, factory-offset verification, and flashing guidance.
+- Kept the unvalidated experimental one-wire S.Port binary out of the supported release.
 - Documented the July 2026 test observations and remaining validation work.
 
 ## 2026-06-25

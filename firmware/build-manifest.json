@@ -1,0 +1,50 @@
+{
+  "project": "RadioMaster Nomad TX as ExpressLRS RX",
+  "project_version": "0.2.0",
+  "build_date": "2026-07-26",
+  "expresslrs_version": "4.1.0",
+  "expresslrs_commit": "a9d4a9cb5b5687c4c9d7e9e7fbdf44ad93651da6",
+  "targets_commit": "7d7f15d832c3f6ddcf9c5148078075df03b0fd0a",
+  "regulatory_domain": "Regulatory_Domain_FCC_915",
+  "platform": "esp32",
+  "firmware_environment": "Unified_ESP32_LR1121_RX_via_UART",
+  "target": "radiomaster.rx_dual.nomad-rx-fcc",
+  "product_name": "RadioMaster Nomad RX FCC",
+  "binding_phrase_compiled": false,
+  "wifi_credentials_compiled": false,
+  "serial": {
+    "rx_gpio": 3,
+    "tx_gpio": 1,
+    "mode": "two-wire full-duplex"
+  },
+  "files": {
+    "Nomad_RX_UART0_ELRS_4.1.0_FCC915_WIFI.bin": {
+      "role": "WebUI and Configurator application image",
+      "size": 1259088,
+      "sha256": "05b70fe925e1ef11b04eb42e6ee2dcbb5548cd342a04cdf635b30a668ab21e58"
+    },
+    "Nomad_RX_UART0_ELRS_4.1.0_FCC915_FACTORY.bin": {
+      "role": "Merged ESP32 image for flashing at address 0x0",
+      "size": 1324624,
+      "sha256": "5e687f96efa18009565deebafc03ead7550d0a51fd3a4264c20c0247191c3c4e"
+    },
+    "hardware.json": {
+      "role": "Exact embedded hardware definition",
+      "size": 846,
+      "sha256": "ecce28069ef0fce5cc977d9af11b2d5348f7d5cabd01fdada6c51a0b1e725b6a"
+    }
+  },
+  "factory_offsets": {
+    "bootloader": "0x1000",
+    "partition_table": "0x8000",
+    "boot_app0": "0xE000",
+    "application": "0x10000"
+  },
+  "validation": {
+    "build": "success",
+    "esp32_image_checksum": "valid",
+    "esp32_validation_hash": "valid",
+    "factory_components": "byte-for-byte verified",
+    "physical_flash_of_this_exact_rebuild": "pending"
+  }
+}
