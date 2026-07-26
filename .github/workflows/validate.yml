@@ -1,0 +1,35 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.11", "3.12"]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Compile Python
+        run: python -m compileall -q install_nomad_rx_target.py verify_nomad_rx_target.py tests
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool "RX/Radiomaster Nomad RX FCC.json" >/dev/null
+          python -m json.tool "hardware-upload/hardware-nomad-rx-fcc-v4-fan.json" >/dev/null
+          python -m json.tool "targets-radiomaster-rx_dual-entry.json" >/dev/null
