@@ -1,0 +1,42 @@
+name: Flight Commander runner probe
+
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/flight-commander-runner-probe.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: flight-commander-runner-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out main
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Record successful runner allocation
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "runner-ok"
+            echo "run-id=${GITHUB_RUN_ID}"
+            echo "run-attempt=${GITHUB_RUN_ATTEMPT}"
+            uname -a
+          } > .flight-commander-runner-probe-success.txt
+          git add .flight-commander-runner-probe-success.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Record successful Flight Commander runner probe'
+          git push origin HEAD:main
