@@ -4,6 +4,9 @@ name: Flight Commander runner probe
   push:
     branches:
       - agent/test-actions-runner
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
