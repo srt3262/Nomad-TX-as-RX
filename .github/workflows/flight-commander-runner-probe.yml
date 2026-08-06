@@ -1,0 +1,18 @@
+name: Flight Commander runner probe
+
+"on":
+  push:
+    branches:
+      - agent/test-actions-runner
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    steps:
+      - run: |
+          echo runner-ok
+          uname -a
