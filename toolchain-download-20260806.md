@@ -1,0 +1,1 @@
+[Download xPack GNU Arm Embedded GCC 13.2.1 Linux x64](https://github.com/xpack-dev-tools/arm-none-eabi-gcc-xpack/releases/download/v13.2.1-1.1/xpack-arm-none-eabi-gcc-13.2.1-1.1-linux-x64.tar.gz?flight-commander=4.0.6-20260806T2218Z)
